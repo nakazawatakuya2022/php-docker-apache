@@ -1,0 +1,9 @@
+# env/秘密はここに入れない運用（例示だけ）
+.env
+# OS / エディタ
+.DS_Store
+.vscode/
+# PHP
+vendor/
+# Docker
+dbdata/

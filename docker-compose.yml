@@ -1,0 +1,32 @@
+# ~/projects/php-docker-apache/docker-compose.yml を少し強化
+# web, db それぞれに restart と TZ を追記
+
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - "./app:/var/www/html:z"
+    depends_on:
+      - db
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Tokyo
+
+  db:
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=app
+      - MYSQL_USER=app
+      - MYSQL_PASSWORD=secret
+      - TZ=Asia/Tokyo
+    ports:
+      - "3307:3306"
+    volumes:
+      - "dbdata:/var/lib/mysql"
+    restart: unless-stopped
+
+volumes:
+  dbdata:
